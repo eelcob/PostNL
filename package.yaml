@@ -1,0 +1,12 @@
+name: sensor.postnl
+description: Package feed reader for PostNL json file
+type: component
+keywords:
+  - sensor
+  - PostNL
+author:
+  name: Eelco Bode 
+license: MIT
+files:
+  - custom_components/feedparser/sensor.py
+  - custom_components/feedparser/manifest.json
