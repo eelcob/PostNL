@@ -2,6 +2,8 @@
 """
 Sensor component for PostNL
 Author: Eelco Bode
+
+Todo: fix file location to variable
 """
 
 import json
