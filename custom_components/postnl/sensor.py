@@ -6,6 +6,8 @@ Author: Eelco Bode
 Todo: fix file location to variable
 """
 
+_LOGGER.warning("start Loading PostNL")
+
 import json
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
