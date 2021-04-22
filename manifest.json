@@ -1,0 +1,12 @@
+{
+  "domain": "PostNL",
+  "name": "PostNL",
+  "version": "0.0.1",
+  "documentation": "https://github.com/eelcob/PostNL",
+  "dependencies": [],
+  "codeowners": [
+    "@eelcob"
+  ],
+  "requirements": [
+  ]
+}
