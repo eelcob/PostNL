@@ -6,12 +6,15 @@ Author: Eelco Bode
 Todo: fix file location to variable
 """
 import json
+import logging
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 import homeassistant.helpers.config_validation as cv
 from homeassistant.const import CONF_RESOURCES
 from homeassistant.util import Throttle
 from homeassistant.helpers.entity import Entity
+
+_LOGGER = logging.getLogger(__name__)
 
 _LOGGER.warning("start Loading PostNL")
 
