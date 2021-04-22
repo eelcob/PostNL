@@ -5,9 +5,6 @@ Author: Eelco Bode
 
 Todo: fix file location to variable
 """
-
-_LOGGER.warning("start Loading PostNL")
-
 import json
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
@@ -15,6 +12,8 @@ import homeassistant.helpers.config_validation as cv
 from homeassistant.const import CONF_RESOURCES
 from homeassistant.util import Throttle
 from homeassistant.helpers.entity import Entity
+
+_LOGGER.warning("start Loading PostNL")
 
 def setup_platform(hass, config, add_entities, discovery_info=None):
     _LOGGER.debug("Setup PostNL sensor")
