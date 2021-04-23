@@ -90,45 +90,45 @@ def async_setup_platform(hass, config, add_entities, discovery_info=None):
         [
         _LOGGER.debug("Setup PostNL sensor")
 
-        entities = []
-
-        data = {}
-        packagenumber = 0
-        with open ('POSTNL-Inbox.json') as json_file:
-            data = json.load(json_file)
-            for package in data ['receiver']:
-                sensor_type = resource.lower()
-
-                id = packagenumber
-                print (id)
-        
-                type = package['shipmentType']
-                print (type)
-
-                state = package['status']
-                print (state)
-
-                if package['sender']:
-                    if package['sender']['firstName']:
-                        if package['sender']['lastName']:
-                            sender = package['sender']['firstName'] + " " + package['sender']['lastName']
-                        else:
-                            sender = package['sender']['firstName']
-                    elif package['sender']['lastName']:
-                        sender = package['sender']['lastName']
-                    elif package['sender']['companyName']:
-                            sender = package['sender']['companyName']
-                    else:
-                        sender = "uknown"
-                else:
-                    sender = "Unknown"
-                print (sender)
-                package = PostNLSensor(id, sender, type, state)
-    
-                packagenumber = packagenumber + 1
-                entities.append(package)
-
-            add_entities(entities)
+#        entities = []
+#
+#        data = {}
+#        packagenumber = 0
+#        with open ('POSTNL-Inbox.json') as json_file:
+#            data = json.load(json_file)
+#            for package in data ['receiver']:
+#                sensor_type = resource.lower()
+#
+#                id = packagenumber
+#                print (id)
+#        
+#                type = package['shipmentType']
+#                print (type)
+#
+#                state = package['status']
+#                print (state)
+#
+#                if package['sender']:
+#                    if package['sender']['firstName']:
+#                        if package['sender']['lastName']:
+#                            sender = package['sender']['firstName'] + " " + package['sender']['lastName']
+#                        else:
+#                            sender = package['sender']['firstName']
+#                    elif package['sender']['lastName']:
+#                        sender = package['sender']['lastName']
+#                    elif package['sender']['companyName']:
+#                            sender = package['sender']['companyName']
+#                    else:
+#                        sender = "uknown"
+#                else:
+#                    sender = "Unknown"
+#                print (sender)
+#                package = PostNLSensor(id, sender, type, state)
+#    
+#                packagenumber = packagenumber + 1
+#                entities.append(package)
+#
+#            add_entities(entities)
         ],
         True,
     )
