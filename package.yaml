@@ -8,6 +8,6 @@ author:
   name: Eelco Bode 
 license: MIT
 files:
-  - custom_components/feedparser/sensor.py
-  - custom_components/feedparser/manifest.json
-  - custom_components/feedparser/__init__.py
+  - custom_components/postnl/sensor.py
+  - custom_components/postnl/manifest.json
+  - custom_components/postnl/__init__.py
