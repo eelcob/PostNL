@@ -88,8 +88,8 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 def async_setup_platform(hass, config, add_entities, discovery_info=None):
     async_add_devices(
         [
-        _LOGGER.debug("Setup PostNL sensor")
-
+#        _LOGGER.debug("Setup PostNL sensor")
+#
 #        entities = []
 #
 #        data = {}
