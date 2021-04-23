@@ -7,6 +7,7 @@ Todo: fix file location to variable
 """
 import json
 import logging
+import voluptuous as vol
 
 from homeassistant.components.sensor import SensorEntity
 import homeassistant.helpers.config_validation as cv
