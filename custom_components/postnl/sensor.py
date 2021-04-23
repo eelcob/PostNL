@@ -7,6 +7,7 @@ Todo: fix file location to variable
 """
 import json
 import logging
+import asyncio
 import voluptuous as vol
 
 from homeassistant.components.sensor import SensorEntity
