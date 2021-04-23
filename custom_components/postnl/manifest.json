@@ -1,8 +1,10 @@
 {
-  "domain": "postnl",
+  "domain": "PostNL",
   "name": "PostNL",
-  "version": "0.1.0",
-  "documentation": "https://github.com/custom-components/psotnl/blob/master/README.md",
+  "version": "0.0.2",
+  "documentation": "https://github.com/eelcob/PostNL",
   "dependencies": [],
-  "codeowners": ["@ebode"]
+  "codeowners": [
+    "@eelcob"
+  ]
 }

@@ -1,168 +1,160 @@
-"""Feedparser sensor"""
+#!/usr/bin/env python3
+"""
+Sensor component for PostNL
+Author: Eelco Bode
 
-import asyncio
-import re
-import feedparser
-import voluptuous as vol
-from datetime import timedelta
-from dateutil import parser
-from homeassistant.components.sensor import SensorEntity
-import homeassistant.helpers.config_validation as cv
+Todo: fix file location to variable
+"""
+import json
+import logging
+
 from homeassistant.components.sensor import PLATFORM_SCHEMA
-from homeassistant.const import CONF_NAME
+import homeassistant.helpers.config_validation as cv
+from homeassistant.const import CONF_RESOURCES
+from homeassistant.util import Throttle
+from homeassistant.helpers.entity import Entity
 
-__version__ = "0.1.2"
+_LOGGER = logging.getLogger(__name__)
 
-REQUIREMENTS = ["feedparser"]
+_LOGGER.warning("start Loading PostNL")
 
-CONF_FEED_URL = "feed_url"
-CONF_DATE_FORMAT = "date_format"
-CONF_INCLUSIONS = "inclusions"
-CONF_EXCLUSIONS = "exclusions"
-CONF_SHOW_TOPN = "show_topn"
 
-DEFAULT_SCAN_INTERVAL = timedelta(hours=1)
+CONF_POST_FILE = "post_file"
 
-COMPONENT_REPO = "https://github.com/custom-components/sensor.feedparser/"
-SCAN_INTERVAL = timedelta(minutes=10)
-ICON = "mdi:rss"
+ICON = "mdi:email"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
         vol.Required(CONF_NAME): cv.string,
-        vol.Required(CONF_FEED_URL): cv.string,
-        vol.Required(CONF_DATE_FORMAT, default="%a, %b %d %I:%M %p"): cv.string,
-        vol.Optional(CONF_SHOW_TOPN, default=9999): cv.positive_int,
-        vol.Optional(CONF_INCLUSIONS, default=[]): vol.All(cv.ensure_list, [cv.string]),
-        vol.Optional(CONF_EXCLUSIONS, default=[]): vol.All(cv.ensure_list, [cv.string]),
+        vol.Required(CONF_POST_FILE): cv.string,
     }
 )
 
+#@asyncio.coroutine
+#def async_setup_platform(hass, config, async_add_devices, discovery_info=None):
+#    async_add_devices(
+#        [
+#            PostNLSensor(
+#                feed=config[CONF_POST_FILE],
+#                name=config[CONF_NAME],
+#            )
+#        ],
+#        True,
+#    )
+#
+#class PostNLSensor(SensorEntity):
+#    def __init__(
+#        self,
+#        feed: str,
+#        name: str,
+#    ):
+#        self._feed = feed
+#        self._name = name
+#        self._state = None
+#        self._entries = []
+#
+#
+#
+#
+#
+#   @property
+#    def name(self):
+#        return self._name
+#
+#    @property
+#    def state(self):
+#        return self._state
+#
+#    @property
+#    def icon(self):
+#        return ICON
+#
+#    @property
+#    def device_state_attributes(self):
+#        return {"entries": self._entries}
+
+#@asyncio.coroutine
+#def async_setup_platform(hass, config, async_add_devices, discovery_info=None):
+#    async_add_devices(
+#        [
+#            PostNLSensor(
+#                feed=config[CONF_POST_FILE],
+#                name=config[CONF_NAME],
+#            )
+#        ],
+#        True,
 
 @asyncio.coroutine
-def async_setup_platform(hass, config, async_add_devices, discovery_info=None):
+def async_setup_platform(hass, config, add_entities, discovery_info=None):
     async_add_devices(
         [
-            FeedParserSensor(
-                feed=config[CONF_FEED_URL],
-                name=config[CONF_NAME],
-                date_format=config[CONF_DATE_FORMAT],
-                show_topn=config[CONF_SHOW_TOPN],
-                inclusions=config[CONF_INCLUSIONS],
-                exclusions=config[CONF_EXCLUSIONS],
-            )
+#        _LOGGER.debug("Setup PostNL sensor")
+#
+#        entities = []
+#
+#        data = {}
+#        packagenumber = 0
+#        with open ('POSTNL-Inbox.json') as json_file:
+#            data = json.load(json_file)
+#            for package in data ['receiver']:
+#                sensor_type = resource.lower()
+#
+#                id = packagenumber
+#                print (id)
+#        
+#                type = package['shipmentType']
+#                print (type)
+#
+#                state = package['status']
+#                print (state)
+#
+#                if package['sender']:
+#                    if package['sender']['firstName']:
+#                        if package['sender']['lastName']:
+#                            sender = package['sender']['firstName'] + " " + package['sender']['lastName']
+#                        else:
+#                            sender = package['sender']['firstName']
+#                    elif package['sender']['lastName']:
+#                        sender = package['sender']['lastName']
+#                    elif package['sender']['companyName']:
+#                            sender = package['sender']['companyName']
+#                    else:
+#                        sender = "uknown"
+#                else:
+#                    sender = "Unknown"
+#                print (sender)
+#                package = PostNLSensor(id, sender, type, state)
+#    
+#                packagenumber = packagenumber + 1
+#                entities.append(package)
+#
+#            add_entities(entities)
         ],
         True,
     )
 
 
-class FeedParserSensor(SensorEntity):
-    def __init__(
-        self,
-        feed: str,
-        name: str,
-        date_format: str,
-        show_topn: str,
-        exclusions: str,
-        inclusions: str,
-    ):
-        self._feed = feed
-        self._name = name
-        self._date_format = date_format
-        self._show_topn = show_topn
-        self._inclusions = inclusions
-        self._exclusions = exclusions
+class PostNLSenor(Entity):
+    def __init__(self, data, id, sender, type, state):
+        self.data = data
+        self.id = id
+        self.sender = sender
+        self.type = type
+        self.state = state
+        self._name = SENSOR_PREFIX + (id_name + " " if len(id_name) > 0  else "") + SENSOR_TYPES[sensor_type][0]
+        self._icon = SENSOR_TYPES[sensor_type][1]
+        self._hidden = False
         self._state = None
-        self._entries = []
-
-    def update(self):
-        parsedFeed = feedparser.parse(self._feed)
-
-        if not parsedFeed:
-            return False
-        else:
-            self._state = (
-                self._show_topn
-                if len(parsedFeed.entries) > self._show_topn
-                else len(parsedFeed.entries)
-            )
-            self._entries = []
-
-            for entry in parsedFeed.entries[: self._state]:
-                entryValue = {}
-
-                for key, value in entry.items():
-                    if (
-                        (self._inclusions and key not in self._inclusions)
-                        or ("parsed" in key)
-                        or (key in self._exclusions)
-                    ):
-                        continue
-                    if key in ["published", "updated", "created", "expired"]:
-                        value = parser.parse(value).strftime(self._date_format)
-
-                    entryValue[key] = value
-
-                if 'image' in self._inclusions and 'image' not in entryValue.keys():
-                    image = []
-                    images = []
-                    if 'summary' in entry.keys():
-                        images = re.findall(r"<img.+?src=\"(.+?)\".+?>", entry['summary'])
-                    if images:
-                        entryValue['image'] = images[0]
-                    else:
-                        if 'links' in entry.keys():
-                            images = re.findall("\'0\', \'href\': \'(.*jpg)", str(entry['links']))
-                        if image:
-                            entryValue['image'] = image
-                        else:
-                            if "media_content" in entry.keys():
-                               images = entry['media_content'][0]['url']
-                               #images = str(entry["mediacontent"][0]["url"])
-                            if images:
-                               entryValue['image'] = images[0]
-                            else:
-                               entryValue['image'] = "https://www.home-assistant.io/images/favicon-192x192-full.png"
-
-
-#                    #if images:
-#                    #else:
-#
-#                        #entryValue['image'] = image
-#
-#                        if image:
-#                            entryValue['image'] = image
-#                        else:
-#                            entryValue['image'] = "https://www.home-assistant.io/images/favicon-192x192-full.png"
-#
-
-#                if "image" in self._inclusions and "image" not in entryValue.keys():
-#                    images = []
-#                    if "summary" in entry.keys():
-#                        images = re.findall(
-#                            r"<img.+?src=\"(.+?)\".+?>", entry["summary"]
-#                        )
-#                    if images:
-#                        entryValue["image"] = images[0]
-#                    else:
-#                        entryValue[
-#                            "image"
-#                        ] = "https://www.home-assistant.io/images/favicon-192x192-full.png"
-#
-                self._entries.append(entryValue)
+        self._last_update = None
 
     @property
     def name(self):
         return self._name
 
     @property
+    def icon(self):
+        return self._icon
+
+    @property
     def state(self):
         return self._state
-
-    @property
-    def icon(self):
-        return ICON
-
-    @property
-    def device_state_attributes(self):
-        return {"entries": self._entries}
