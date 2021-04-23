@@ -8,16 +8,14 @@ Todo: fix file location to variable
 import json
 import logging
 
-from homeassistant.components.sensor import PLATFORM_SCHEMA
+from homeassistant.components.sensor import SensorEntity
 import homeassistant.helpers.config_validation as cv
-from homeassistant.const import CONF_RESOURCES
-from homeassistant.util import Throttle
-from homeassistant.helpers.entity import Entity
+from homeassistant.components.sensor import PLATFORM_SCHEMA
+from homeassistant.const import CONF_NAME
 
 _LOGGER = logging.getLogger(__name__)
 
 _LOGGER.warning("start Loading PostNL")
-
 
 CONF_POST_FILE = "post_file"
 
