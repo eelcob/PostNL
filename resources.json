@@ -1,5 +1,5 @@
 [
-  "https://raw.githubusercontent.com/eelcob/PostNL/master/custom_components/PostNL/__init__.py",
-  "https://raw.githubusercontent.com/eelcob/PostNL/master/custom_components/PostNL/manifest.json",
-  "https://raw.githubusercontent.com/eelcob/PostNL/master/custom_components/PostNL/sensor.py"
+  "https://raw.githubusercontent.com/eelcob/PostNL/master/custom_components/postnl/__init__.py",
+  "https://raw.githubusercontent.com/eelcob/PostNL/master/custom_components/postnl/manifest.json",
+  "https://raw.githubusercontent.com/eelcob/PostNL/master/custom_components/postnl/sensor.py"
 ]
