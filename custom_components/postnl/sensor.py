@@ -17,7 +17,7 @@ _LOGGER = logging.getLogger(__name__)
 
 _LOGGER.warning("start Loading PostNL")
 
-CONF_POST_FILE = "post_file"
+CONF_POST_FILE = "postfile"
 
 ICON = "mdi:email"
 
