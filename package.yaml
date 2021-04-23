@@ -10,3 +10,4 @@ license: MIT
 files:
   - custom_components/feedparser/sensor.py
   - custom_components/feedparser/manifest.json
+  - custom_components/feedparser/__init__.py
