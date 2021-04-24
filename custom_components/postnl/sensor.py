@@ -43,47 +43,6 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 #        True,
 #    )
 #
-#class PostNLSensor(SensorEntity):
-#    def __init__(
-#        self,
-#        feed: str,
-#        name: str,
-#    ):
-#        self._feed = feed
-#        self._name = name
-#        self._state = None
-#        self._entries = []
-#
-#
-#
-#
-#
-#   @property
-#    def name(self):
-#        return self._name
-#
-#    @property
-#    def state(self):
-#        return self._state
-#
-#    @property
-#    def icon(self):
-#        return ICON
-#
-#    @property
-#    def device_state_attributes(self):
-#        return {"entries": self._entries}
-
-#@asyncio.coroutine
-#def async_setup_platform(hass, config, async_add_devices, discovery_info=None):
-#    async_add_devices(
-#        [
-#            PostNLSensor(
-#                feed=config[CONF_POST_FILE],
-#                name=config[CONF_NAME],
-#            )
-#        ],
-#        True,
 
 @asyncio.coroutine
 def async_setup_platform(hass, config, add_entities, discovery_info=None):
@@ -95,7 +54,7 @@ def async_setup_platform(hass, config, add_entities, discovery_info=None):
 
             data = {}
             packagenumber = 0
-            with open ('POSTNL-Inbox.json') as json_file:
+            with open [CONF_POST_FILE] as json_file:
                 data = json.load(json_file)
                 for package in data ['receiver']:
                     sensor_type = resource.lower()
