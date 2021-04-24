@@ -43,15 +43,16 @@ def async_setup_platform(hass, config, add_entities, discovery_info=None):
             with open (packagefile) as json_file:
                 data = json.load(json_file)
                 for package in data ['receiver']:
+                    _LOGGER.debug("Loading Packages")
 
                     id = packagenumber
-                    print (id)
+                    _LOGGER.debug(id)
     
                     type = package['shipmentType']
-                    print (type)
+                    _LOGGER.debug(type)
 
                     state = package['status']
-                    print (state)
+                    _LOGGER.debug(state)
 
                     if package['sender']:
                         if package['sender']['firstName']:
