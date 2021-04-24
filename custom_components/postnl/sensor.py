@@ -54,7 +54,7 @@ def async_setup_platform(hass, config, add_entities, discovery_info=None):
 
             data = {}
             packagenumber = 0
-            packagefile = config.get(CONF_POST_FILE).lower().strip()
+            packagefile = config.get(CONF_POST_FILE).strip()
             with open (packagefile) as json_file:
                 data = json.load(json_file)
                 for package in data ['receiver']:
