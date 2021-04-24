@@ -86,8 +86,8 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 
 @asyncio.coroutine
 def async_setup_platform(hass, config, add_entities, discovery_info=None):
-    async_add_devices(
-        [
+    #async_add_devices(
+        #[
             _LOGGER.debug("Setup PostNL sensor")
 
             #entities = []
@@ -129,9 +129,9 @@ def async_setup_platform(hass, config, add_entities, discovery_info=None):
                     entities.append(package)
     
                 add_entities(entities)
-        ],
-        True,
-    )
+    #    ],
+    #    True,
+    #)
 
 
 class PostNLSenor(Entity):
