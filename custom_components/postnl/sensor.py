@@ -31,19 +31,6 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     }
 )
 
-#@asyncio.coroutine
-#def async_setup_platform(hass, config, async_add_devices, discovery_info=None):
-#    async_add_devices(
-#        [
-#            PostNLSensor(
-#                feed=config[CONF_POST_FILE],
-#                name=config[CONF_NAME],
-#            )
-#        ],
-#        True,
-#    )
-#
-
 @asyncio.coroutine
 def async_setup_platform(hass, config, add_entities, discovery_info=None):
     #async_add_devices(
