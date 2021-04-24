@@ -45,7 +45,6 @@ def async_setup_platform(hass, config, add_entities, discovery_info=None):
             with open (packagefile) as json_file:
                 data = json.load(json_file)
                 for package in data ['receiver']:
-                    sensor_type = resource.lower()
 
                     id = packagenumber
                     print (id)
